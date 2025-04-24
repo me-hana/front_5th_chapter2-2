@@ -1,11 +1,17 @@
-// useCart.ts
 import { useState } from "react";
 import { CartItem, Coupon, Product } from "../../types";
 import { calculateCartTotal } from "../models/cart";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useCart = () => {
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
+  // const [cart, setCart] = useState<CartItem[]>([]);
+  // const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
+
+  const [cart, setCart] = useLocalStorage<CartItem[]>("cart", []);
+  const [selectedCoupon, setSelectedCoupon] = useLocalStorage<Coupon | null>(
+    "coupon",
+    null,
+  );
 
   const getRemainingStock = (product: Product) => {
     const cartItem = cart.find((item) => item.product.id === product.id);
