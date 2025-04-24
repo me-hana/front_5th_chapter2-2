@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CartItem, Coupon, Product } from "../../types";
 import { calculateCartTotal } from "../models/cart";
 import { useLocalStorage } from "./useLocalStorage";
