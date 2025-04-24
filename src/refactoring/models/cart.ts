@@ -75,7 +75,14 @@ export const updateCartItemQuantity = (
   productId: string,
   newQuantity: number,
 ): CartItem[] => {
-  return [];
+  return cart.map(item => {
+    if (item.product.id === productId) {
+      const maxQuantity = item.product.stock;
+      const updatedQuantity = Math.max(0, Math.min(newQuantity, maxQuantity));
+      return updatedQuantity > 0 ? { ...item, quantity: updatedQuantity } : null;
+    }
+    return item;
+  }).filter((item): item is CartItem => item !== null);
 };
 
 // 엄밀히 말하면 Cart보다는 재고랑 관련된 계산 함수
