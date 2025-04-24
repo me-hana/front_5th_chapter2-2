@@ -11,7 +11,7 @@ interface Props {
   coupons: Coupon[];
 }
 
-export const CartPage = ({ products, coupons }: Props) => {
+export const CartView = ({ products, coupons }: Props) => {
   const {
     cart,
     addToCart,

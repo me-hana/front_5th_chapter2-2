@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { CartPage } from './components/CartPage.tsx';
-import { AdminPage } from './components/AdminPage.tsx';
 import { Coupon, Product } from '../types.ts';
 import { useCoupons, useProducts } from "./hooks";
+import { AdminView } from './views/AdminView.tsx';
+import { CartView } from './views/CartView.tsx';
 
 const initialProducts: Product[] = [
   {
@@ -63,7 +63,7 @@ const App = () => {
       </nav>
       <main className="container mx-auto mt-6">
         {isAdmin ? (
-          <AdminPage
+          <AdminView
             products={products}
             coupons={coupons}
             onProductUpdate={updateProduct}
@@ -71,7 +71,7 @@ const App = () => {
             onCouponAdd={addCoupon}
           />
         ) : (
-          <CartPage products={products} coupons={coupons}/>
+          <CartView products={products} coupons={coupons}/>
         )}
       </main>
     </div>
