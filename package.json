@@ -1,5 +1,6 @@
 {
   "name": "assignment-5",
+  "homepage": "https://me-hana.github.io/front_5th_chapter2-2/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,7 +13,9 @@
     "test:advanced": "vitest src/advanced",
     "test:ui": "vitest --ui",
     "build": "tsc -b && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "predeploy": "pnpm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -35,6 +38,7 @@
     "jsdom": "^26.1.0",
     "typescript": "^5.6.3",
     "vite": "^5.4.9",
-    "vitest": "^2.1.3"
+    "vitest": "^2.1.3",
+    "gh-pages": "^6.3.0"
   }
 }
