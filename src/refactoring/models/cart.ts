@@ -1,14 +1,19 @@
 import { CartItem, Coupon, Product } from "../../types";
 
 export const calculateItemTotal = (item: CartItem) => {
-  return 0;
+  const discount = item.product.discounts.reduce((maxDiscount, d) => {
+    return item.quantity >= d.quantity && d.rate > maxDiscount
+      ? d.rate
+      : maxDiscount;
+  }, 0);
+
+  return item.product.price * item.quantity * (1 - discount);
 };
 
 export const getMaxApplicableDiscount = (item: CartItem) => {
   return 0;
 };
 
-// getMaxApplicableDiscount은 getMaxDiscount, getAppliedDiscount를 합쳐서 만들면 되나?
 export const getMaxDiscount = (
   discounts: { quantity: number; rate: number }[],
 ) => {
