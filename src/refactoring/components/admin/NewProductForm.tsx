@@ -11,10 +11,14 @@ export const NewProductForm = ({ newProduct, onChange, onAdd }: Props) => {
     <div className="bg-white p-4 rounded shadow mb-4">
       <h3 className="text-xl font-semibold mb-2">새 상품 추가</h3>
       <div className="mb-2">
-        <label className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="productName"
+          className="block text-sm font-medium text-gray-700"
+        >
           상품명
         </label>
         <input
+          id="productName"
           type="text"
           value={newProduct.name}
           onChange={(e) => onChange({ ...newProduct, name: e.target.value })}
@@ -22,8 +26,14 @@ export const NewProductForm = ({ newProduct, onChange, onAdd }: Props) => {
         />
       </div>
       <div className="mb-2">
-        <label className="block text-sm font-medium text-gray-700">가격</label>
+        <label
+          htmlFor="productPrice"
+          className="block text-sm font-medium text-gray-700"
+        >
+          가격
+        </label>
         <input
+          id="productPrice"
           type="number"
           value={newProduct.price}
           onChange={(e) =>
@@ -33,8 +43,14 @@ export const NewProductForm = ({ newProduct, onChange, onAdd }: Props) => {
         />
       </div>
       <div className="mb-2">
-        <label className="block text-sm font-medium text-gray-700">재고</label>
+        <label
+          htmlFor="productStock"
+          className="block text-sm font-medium text-gray-700"
+        >
+          재고
+        </label>
         <input
+          id="productStock"
           type="number"
           value={newProduct.stock}
           onChange={(e) =>
