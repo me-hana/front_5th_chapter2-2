@@ -1,4 +1,5 @@
 import { Discount } from "../../../types";
+import { formatDiscount } from "../../utils/format";
 
 interface Props {
   discount: Discount;
@@ -8,9 +9,7 @@ interface Props {
 export const DiscountListItem = ({ discount, onRemove }: Props) => {
   return (
     <div className="flex justify-between items-center mb-2">
-      <span>
-        {discount.quantity}개 이상 구매 시 {discount.rate * 100}% 할인
-      </span>
+      <span>{formatDiscount(discount.quantity, discount.rate)}</span>
       {onRemove && (
         <button
           onClick={onRemove}
