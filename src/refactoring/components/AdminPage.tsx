@@ -3,6 +3,7 @@ import { Coupon, Product } from "../../types.ts";
 import { useProductEditor } from "../hooks/useProductEditor.ts";
 import { NewProductForm } from "./admin/NewProductForm.tsx";
 import { CouponOption } from "./admin/CouponOption.tsx";
+import { DiscountListItem } from "./admin/DiscountListItem.tsx";
 
 interface Props {
   products: Product[];
@@ -160,23 +161,13 @@ export const AdminPage = ({
                             할인 정보
                           </h4>
                           {editingProduct.discounts.map((discount, index) => (
-                            <div
+                            <DiscountListItem
                               key={index}
-                              className="flex justify-between items-center mb-2"
-                            >
-                              <span>
-                                {discount.quantity}개 이상 구매 시{" "}
-                                {discount.rate * 100}% 할인
-                              </span>
-                              <button
-                                onClick={() =>
-                                  removeDiscount(product.id, index)
-                                }
-                                className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                              >
-                                삭제
-                              </button>
-                            </div>
+                              product={product}
+                              index={index}
+                              discount={discount}
+                              onRemove={removeDiscount}
+                            />
                           ))}
                           <div className="flex space-x-2">
                             <input
