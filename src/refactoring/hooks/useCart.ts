@@ -1,16 +1,17 @@
+import { useState } from "react";
 import { CartItem, Coupon, Product } from "../../types";
-import { calculateCartTotal } from "../models/cart";
+import { calculateCartTotal, updateCartItemQuantity } from "../models/cart";
 import { useLocalStorage } from "./useLocalStorage";
 
-export const useCart = () => {
-  // const [cart, setCart] = useState<CartItem[]>([]);
-  // const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
+const isTest = process.env.NODE_ENV === "test";
 
-  const [cart, setCart] = useLocalStorage<CartItem[]>("cart", []);
-  const [selectedCoupon, setSelectedCoupon] = useLocalStorage<Coupon | null>(
-    "coupon",
-    null,
-  );
+export const useCart = () => {
+  const [cart, setCart] = isTest
+    ? useState<CartItem[]>([])
+    : useLocalStorage<CartItem[]>("cart", []);
+  const [selectedCoupon, setSelectedCoupon] = isTest
+    ? useState<Coupon | null>(null)
+    : useLocalStorage<Coupon | null>("coupon", null);
 
   const getRemainingStock = (product: Product) => {
     const cartItem = cart.find((item) => item.product.id === product.id);
@@ -44,21 +45,7 @@ export const useCart = () => {
 
   const updateQuantity = (productId: string, newQuantity: number) => {
     setCart((prevCart) =>
-      prevCart
-        .map((item) => {
-          if (item.product.id === productId) {
-            const maxQuantity = item.product.stock;
-            const updatedQuantity = Math.max(
-              0,
-              Math.min(newQuantity, maxQuantity),
-            );
-            return updatedQuantity > 0
-              ? { ...item, quantity: updatedQuantity }
-              : null;
-          }
-          return item;
-        })
-        .filter((item): item is CartItem => item !== null),
+      updateCartItemQuantity(prevCart, productId, newQuantity),
     );
   };
 

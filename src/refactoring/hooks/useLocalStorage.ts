@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
-  const isTest = process.env.NODE_ENV === "test";
-
   const [storedValue, setStoredValue] = useState<T>(() => {
-    if (isTest) return initialValue;
     try {
       const item = localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
